@@ -32,7 +32,7 @@ func (eh *echoHandler) createTheme(c echo.Context) error {
 	if err != nil {
 		if errors.Is(err, errAlreadyExists) {
 			// TODO Improve messaging, notify the caller about err reason
-			return echo.ErrBadRequest
+			return echo.ErrConflict
 		}
 
 		return echo.ErrInternalServerError
@@ -71,7 +71,7 @@ func (eh *echoHandler) createBook(c echo.Context) error {
 	if err != nil {
 		if errors.Is(err, errAlreadyExists) {
 			// TODO Improve messaging, notify the caller about err reason
-			return echo.ErrBadRequest
+			return echo.ErrConflict
 		}
 
 		return echo.ErrInternalServerError
