@@ -8,6 +8,7 @@ import (
 
 	"github.com/labstack/echo/v4"
 	"github.com/rs/zerolog/log"
+	"github.com/ziflex/lecho/v3"
 )
 
 const (
@@ -26,6 +27,7 @@ var users = struct {
 
 func main() {
 	e := echo.New()
+	e.Logger = lecho.New(os.Stdout)
 
 	e.POST("/users", saveUser)
 	e.GET("/users/:id", getUser)
@@ -44,5 +46,5 @@ func main() {
 	gs := <-quit
 
 	signal.Stop(quit)
-	log.Info().Str("signal", gs.String()).Msg("Terminating.")
+	log.Info().Str("signal", gs.String()).Msg("Shutting down.")
 }
