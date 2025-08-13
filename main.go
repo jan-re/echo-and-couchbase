@@ -1,9 +1,9 @@
 package main
 
 import (
+	"net/http"
 	"os"
 	"os/signal"
-	"sync"
 	"syscall"
 
 	"github.com/labstack/echo/v4"
@@ -18,21 +18,21 @@ const (
 	newUserScore = 100
 )
 
-var users = struct {
-	mu sync.Mutex
-	db map[string]user
-}{
-	db: map[string]user{},
-}
-
 func main() {
 	e := echo.New()
 	e.Logger = lecho.New(os.Stdout)
 
-	e.POST("/users", saveUser)
-	e.GET("/users/:id", getUser)
-	e.PUT("/users/:id", updateUser)
-	e.DELETE("/users/:id", deleteUser)
+	e.POST("/api/themes", notImplemented)
+	e.GET("/api/themes", notImplemented)
+	e.GET("/api/themes/:id", notImplemented)
+	e.PUT("/api/themes/:id", notImplemented)
+	e.DELETE("/api/themes/:id", notImplemented)
+
+	e.POST("/api/books", notImplemented)
+	e.GET("/api/books", notImplemented)
+	e.GET("/api/books/:id", notImplemented)
+	e.PUT("/api/books/:id", notImplemented)
+	e.DELETE("/api/books/:id", notImplemented)
 
 	go func() {
 		if err := e.Start(":12345"); err != nil {
@@ -47,4 +47,8 @@ func main() {
 
 	signal.Stop(quit)
 	log.Info().Str("signal", gs.String()).Msg("Shutting down.")
+}
+
+func notImplemented(c echo.Context) error {
+	return c.String(http.StatusInternalServerError, "Endpoint not implemented")
 }

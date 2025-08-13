@@ -4,10 +4,20 @@ import (
 	"net/http"
 	"strconv"
 	"strings"
+	"sync"
 
 	"github.com/labstack/echo/v4"
 )
 
+// TODO Delete this once no longer useful, should be replaced by DB interface
+var users = struct {
+	mu sync.Mutex
+	db map[string]user
+}{
+	db: map[string]user{},
+}
+
+// TODO Delete this once no longer useful
 func saveUser(c echo.Context) error {
 	var req createUserReq
 	err := c.Bind(&req)
@@ -35,6 +45,7 @@ func saveUser(c echo.Context) error {
 	return c.JSON(http.StatusCreated, map[string]any{"userId": req.ID})
 }
 
+// TODO Delete this once no longer useful
 func getUser(c echo.Context) error {
 	var req getUserReq
 	err := c.Bind(&req)
@@ -67,6 +78,7 @@ func getUser(c echo.Context) error {
 	return c.JSON(http.StatusOK, resp)
 }
 
+// TODO Delete this once no longer useful
 func updateUser(c echo.Context) error {
 	var req putUserReq
 	err := c.Bind(&req)
@@ -96,8 +108,4 @@ func updateUser(c echo.Context) error {
 	users.db[req.ID] = user
 
 	return c.JSON(http.StatusOK, map[string]any{"userUpdated": updated})
-}
-
-func deleteUser(c echo.Context) error {
-	panic("notReady")
 }
