@@ -28,7 +28,7 @@ func (eh *echoHandler) createTheme(c echo.Context) error {
 	newTheme.ID = generateID()
 
 	// TODO Assure that [theme.Name] uniqueness is enforced by a database constrant.
-	err = eh.database.storeTheme(newTheme)
+	err = eh.database.storeTheme(c.Request().Context(), newTheme)
 	if err != nil {
 		if errors.Is(err, errAlreadyExists) {
 			// TODO Improve messaging, notify the caller about err reason
@@ -67,7 +67,7 @@ func (eh *echoHandler) createBook(c echo.Context) error {
 	newBook.ID = generateID()
 
 	// TODO Assure that [book.Name] for the given [book.Author] uniqueness is enforced by a database constrant.
-	err = eh.database.storeBook(newBook)
+	err = eh.database.storeBook(c.Request().Context(), newBook)
 	if err != nil {
 		if errors.Is(err, errAlreadyExists) {
 			// TODO Improve messaging, notify the caller about err reason
