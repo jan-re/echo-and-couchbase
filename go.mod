@@ -1,10 +1,11 @@
-module github.com/jan-re/eval-go-lib
+module github.com/jan-re/echo-and-couchbase
 
 go 1.24.4
 
 require (
 	github.com/labstack/echo/v4 v4.13.4
 	github.com/rs/zerolog v1.34.0
+	github.com/ziflex/lecho/v3 v3.8.0
 )
 
 require (
@@ -17,4 +18,5 @@ require (
 	golang.org/x/net v0.40.0 // indirect
 	golang.org/x/sys v0.35.0 // indirect
 	golang.org/x/text v0.25.0 // indirect
+	golang.org/x/time v0.11.0 // indirect
 )
